@@ -1,5 +1,37 @@
 # guard-brasil
 
+<!-- EGOS-PILARES-BEGIN v=860274433adf — fonte: templates/pilares/BLOCO_README.md · gerado por scripts/pilares-sync.ts · NÃO EDITAR À MÃO -->
+## 🏛️ Construído sobre o EGOS Framework
+
+Este sistema nasce do **EGOS** — um conjunto de regras de governança para IA em que **regra vira
+gate executável**, não fica em documento. O que está escrito abaixo vale para este repositório,
+para quem o construiu e para a própria IA que escreve o código.
+
+> **A regra roda, a prova abre, você decide.**
+
+**Nossa ética, em uma linha:** IA confiável não é a que parece mais inteligente — é a que
+**mostra a fonte, respeita a decisão humana e não deixa o dado vazar**. Isso não é recurso
+adicionado depois; é a arquitetura desde a primeira linha.
+
+### Os 5 pilares
+
+| # | Pilar | Em uma frase | O gate que o executa |
+|---|---|---|---|
+| **P1** | **Verdade Provada** | Afirmação sem prova é inválida; toda afirmação carrega proveniência e classificação (CONFIRMADO · INFERIDO · HIPÓTESE · AÇÃO). | `provenance` + `phantom-done` no pre-commit |
+| **P2** | **Humano Soberano** | Publicar, assinar, gastar e decidir são atos humanos. A IA rascunha; a pessoa corta. | `hitl-registro` — hash, data e critério de aceite escrito |
+| **P3** | **Regra Vira Gate** | Regra sem enforcement é manifesto. Mudar um gate é mudança constitucional. | `const-guard` — bloqueia inclusive quem construiu o sistema |
+| **P4** | **Dado Soberano** | O motor viaja no git; o dado real nunca sai de casa. | `gitleaks` + `pii-hardblock` (PII brasileira) |
+| **P5** | **Entender > Produzir** | Diagnóstico antes de demonstração; capacidade nova exige prova comportamental. | descubra-antes-de-criar + golden cases |
+
+Cada pilar nasceu de um **incidente real**, não de teoria — e cada um vale também para quem
+construiu o sistema. Detalhe com código citável: [`egos-pillars`](https://github.com/enioxt/egos-pillars).
+Voz completa das cinco: `docs/strategy/EGOS_VOICE_GUIDE.md §9` no kernel.
+
+**Este bloco é gerado.** Ele é idêntico em todo repositório derivado do EGOS e se atualiza a
+partir do kernel — editar à mão aqui é perder a edição na próxima sincronia. Para mudar o texto,
+mude a fonte: `templates/pilares/BLOCO_README.md`. Regra que o obriga: **L0-15 EGOS-SE-EXPLICA**.
+<!-- EGOS-PILARES-END -->
+
 **Camada de segurança para IAs que operam no Brasil.**
 
 Detecta e mascara dados pessoais brasileiros (LGPD), valida eticamente respostas de LLMs e mantém rastro auditável de evidências — sem dependências externas de infraestrutura.
