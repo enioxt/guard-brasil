@@ -1,3 +1,6 @@
+> 🌐 **Parte do ecossistema / Part of the [EGOS](https://egos.ia.br) · [CINCO](https://cinco.ia.br) ecosystem.**
+> Mapa geral e por onde começar / general map & where to start: **[github.com/enioxt](https://github.com/enioxt)** · Kit aberto (MIT): [cinco.ia.br/kit](https://cinco.ia.br/kit/)
+
 # guard-brasil
 
 <!-- EGOS-PILARES-BEGIN v=860274433adf — fonte: templates/pilares/BLOCO_README.md · gerado por scripts/pilares-sync.ts · NÃO EDITAR À MÃO -->
