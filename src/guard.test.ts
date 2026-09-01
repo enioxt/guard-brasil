@@ -241,6 +241,15 @@ describe('GuardBrasil — CNPJ detection', () => {
     expect(result.safe).toBe(false);
     expect(result.output).not.toContain('12345678000190');
   });
+
+  it('does NOT flag a decimal fraction as CNPJ (2026-07-26 false-positive)', () => {
+    const guard = makeGuard();
+    const result = guard.inspect('Resultado do cálculo: 69.99999999999966 unidades.');
+    expect(result.output).toContain('69.99999999999966');
+    expect(
+      result.masking.findings.filter((f) => f.category === 'cnpj').length
+    ).toBe(0);
+  });
 });
 
 describe('GuardBrasil — CNH detection', () => {
@@ -340,6 +349,24 @@ describe('GuardBrasil — Vehicle plate detection', () => {
     expect(result.safe).toBe(false);
     expect(result.output).not.toContain('BCD1E23');
     expect(result.output).toContain('[PLACA REMOVIDA]');
+  });
+
+  it('detects Mercosul plate with optional separator (ABC-1D23, GUARD-PLACA-FP-001 2026-07-27)', () => {
+    const guard = makeGuard();
+    const result = guard.inspect('Placa registrada no BO: ABC-1D23.');
+    expect(result.safe).toBe(false);
+    expect(result.output).not.toContain('ABC-1D23');
+    expect(result.output).toContain('[PLACA REMOVIDA]');
+  });
+
+  it('does NOT flag lowercase price-like text as old-format plate (GUARD-PLACA-FP-001 2026-06-21)', () => {
+    const guard = makeGuard();
+    const result = guard.inspect('Vende por 1000, faz 1500 à vista.');
+    expect(result.output).toContain('por 1000');
+    expect(result.output).toContain('faz 1500');
+    expect(
+      result.masking.findings.filter((f) => f.category === 'plate').length
+    ).toBe(0);
   });
 });
 

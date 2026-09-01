@@ -3,7 +3,7 @@
 
 # guard-brasil
 
-<!-- EGOS-PILARES-BEGIN v=860274433adf — fonte: templates/pilares/BLOCO_README.md · gerado por scripts/pilares-sync.ts · NÃO EDITAR À MÃO -->
+<!-- EGOS-PILARES-BEGIN v=59dcfaa40647 — fonte: templates/pilares/BLOCO_README.md · gerado por scripts/pilares-sync.ts · NÃO EDITAR À MÃO -->
 ## 🏛️ Construído sobre o EGOS Framework
 
 Este sistema nasce do **EGOS** — um conjunto de regras de governança para IA em que **regra vira
@@ -24,7 +24,15 @@ adicionado depois; é a arquitetura desde a primeira linha.
 | **P2** | **Humano Soberano** | Publicar, assinar, gastar e decidir são atos humanos. A IA rascunha; a pessoa corta. | `hitl-registro` — hash, data e critério de aceite escrito |
 | **P3** | **Regra Vira Gate** | Regra sem enforcement é manifesto. Mudar um gate é mudança constitucional. | `const-guard` — bloqueia inclusive quem construiu o sistema |
 | **P4** | **Dado Soberano** | O motor viaja no git; o dado real nunca sai de casa. | `gitleaks` + `pii-hardblock` (PII brasileira) |
-| **P5** | **Entender > Produzir** | Diagnóstico antes de demonstração; capacidade nova exige prova comportamental. | descubra-antes-de-criar + golden cases |
+| **P5** | **Entender > Produzir** | Primeiro descubra o que já existe (`/discover`); depois reduza ao menor loop provado (`/simplificar`); só então produza. | descubra-antes-de-criar + golden cases |
+
+### O caminho curto
+
+> **Descobrir → Simplificar → Provar → Só então escalar.**
+
+`/simplificar` não apaga histórico nem prova: ele corta superfície, separa REAL/CONCEPT/PHANTOM,
+expõe o menor loop de valor e reduz a autonomia da IA quando a fonte é frágil, a ação afeta terceiros
+ou o humano não consegue explicar/revisar/reverter a decisão.
 
 Cada pilar nasceu de um **incidente real**, não de teoria — e cada um vale também para quem
 construiu o sistema. Detalhe com código citável: [`egos-pillars`](https://github.com/enioxt/egos-pillars).
@@ -224,3 +232,7 @@ Retorna `GuardBrasilResult`:
 ## Licença
 
 MIT — veja [LICENSE](./LICENSE).
+
+## Changelog
+
+Ver [CHANGELOG.md](./CHANGELOG.md).

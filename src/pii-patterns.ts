@@ -149,7 +149,11 @@ export const CPF_PATTERN: PIIPatternConfig = {
 export const CNPJ_PATTERN: PIIPatternConfig = {
   id: 'cnpj',
   label: 'CNPJ',
-  regex: /\b\d{2}[.\s]?\d{3}[.\s]?\d{3}[/\s]?\d{4}[-.\s]?\d{2}\b/g,
+  // (?<!\d\.) — recusa o match logo após "dígito.": é a assinatura de uma
+  // fração decimal (ex.: 69.99999999999966), não de um CNPJ. Achado medido
+  // 2026-07-26: o ponto decimal cria boundary de regex válido e a mantissa
+  // de 14+ dígitos casava como CNPJ sem separador.
+  regex: /(?<!\d\.)\b\d{2}[.\s]?\d{3}[.\s]?\d{3}[/\s]?\d{4}[-.\s]?\d{2}\b/g,
   maskFormat: '[CNPJ REMOVIDO]',
   confidence: 'high',
   description: 'Cadastro Nacional de Pessoas Jurídicas — 00.000.000/0000-00',
@@ -217,20 +221,28 @@ export const PROCESSO_PATTERN: PIIPatternConfig = {
 export const PLACA_ANTIGA_PATTERN: PIIPatternConfig = {
   id: 'placa_antiga',
   label: 'Placa Veicular',
-  regex: /\b[A-Z]{3}[-\s]?\d{4}(?![-\d\/])/gi,
+  // Sem flag `i` (GUARD-PLACA-FP-001, 2026-06-21): placas BR são maiúsculas;
+  // `i` casava "por 1000"/"faz 1500" e apagava preços (R$1000-9999) antes do
+  // LLM ver o texto, num bot de vendas.
+  regex: /\b[A-Z]{3}[-\s]?\d{4}(?![-\d\/])/g,
   maskFormat: '[PLACA REMOVIDA]',
   confidence: 'medium',
-  description: 'Placa formato antigo — AAA-0000. Lookahead (?![-\\d\\/]) prevents FP-001 and FP-002.',
+  description: 'Placa formato antigo — AAA-0000 (MAIÚSCULAS). Lookahead (?![-\\d\\/]) prevents FP-001 and FP-002.',
 };
 
 /** Placa Mercosul — formato Mercosul (AAA0A00) */
 export const PLACA_MERCOSUL_PATTERN: PIIPatternConfig = {
   id: 'placa_mercosul',
   label: 'Placa Veicular',
-  regex: /\b[A-Z]{3}\d[A-Z]\d{2}\b/gi,
+  // [-\s]? — o formato OFICIAL Mercosul não tem separador (ABC1D23), mas em
+  // boletim de ocorrência a placa é digitada "ABC-1D23" por hábito do formato
+  // antigo. Sem o separador opcional, a placa mais comum em texto policial
+  // escapava dos DOIS patterns — falso-negativo medido 2026-07-27. Sem flag
+  // `i` (GUARD-PLACA-FP-001): só casa MAIÚSCULAS.
+  regex: /\b[A-Z]{3}[-\s]?\d[A-Z]\d{2}\b/g,
   maskFormat: '[PLACA REMOVIDA]',
   confidence: 'medium',
-  description: 'Placa formato Mercosul — AAA0A00',
+  description: 'Placa formato Mercosul — AAA0A00, com separador opcional (MAIÚSCULAS; flag `i` removida — GUARD-PLACA-FP-001).',
 };
 
 /** Telefone — números brasileiros (com ou sem DDI/DDD) */
