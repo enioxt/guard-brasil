@@ -1,5 +1,6 @@
-> 🌐 **Parte do ecossistema / Part of the [EGOS](https://egos.ia.br) · [CINCO](https://cinco.ia.br) ecosystem.**
-> Mapa geral e por onde começar / general map & where to start: **[github.com/enioxt](https://github.com/enioxt)** · Kit aberto (MIT): [cinco.ia.br/kit](https://cinco.ia.br/kit/)
+> **MIGRAÇÃO EGOS — 2026-10-01**
+> Este repositório continua público e útil como pacote, mas não é a porta de entrada do EGOS.
+> A parte pública e compartilhável do EGOS vive em [github.com/enioxt/cinco](https://github.com/enioxt/cinco) ([cinco.ia.br](https://cinco.ia.br)); o núcleo é privado.
 
 # guard-brasil
 
