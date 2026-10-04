@@ -46,7 +46,7 @@ mude a fonte: `templates/pilares/BLOCO_README.md`. Regra que o obriga: **L0-15 E
 
 **Camada de segurança para IAs que operam no Brasil.**
 
-Detecta e mascara dados pessoais brasileiros (LGPD), valida eticamente respostas de LLMs e mantém rastro auditável de evidências — sem dependências externas de infraestrutura.
+Detecta e mascara padrões de dados pessoais e identificadores brasileiros, aplica validações ATRiAN a respostas de LLMs e mantém rastro auditável de evidências — sem dependências externas de infraestrutura.
 
 [![npm version](https://img.shields.io/npm/v/guard-brasil)](https://www.npmjs.com/package/guard-brasil)
 [![license](https://img.shields.io/npm/l/guard-brasil)](./LICENSE)
@@ -58,10 +58,10 @@ Detecta e mascara dados pessoais brasileiros (LGPD), valida eticamente respostas
 `guard-brasil` é uma biblioteca TypeScript que age como filtro de saída entre seu LLM e o usuário final. Ela compõe três camadas:
 
 1. **ATRiAN** — detecta alegações absolutas ("com certeza"), promessas falsas ("vamos resolver") e referências a dados fabricados.
-2. **PII Scanner BR** — identifica e mascara 16 tipos de dados pessoais brasileiros definidos pela LGPD.
+2. **PII Scanner BR** — identifica e mascara padrões de dados pessoais e identificadores brasileiros relevantes para fluxos sujeitos à LGPD.
 3. **Evidence Chain** — anexa proveniência auditável a respostas com fontes documentais.
 
-A combinação garante que sua IA nunca exponha dados sensíveis nem faça afirmações irresponsáveis.
+A combinação **reduz risco**, mas não garante ausência de vazamento, erro ou não conformidade. Padrões podem produzir falsos positivos/falsos negativos, contexto regulatório pode exigir controles adicionais e decisões sensíveis continuam exigindo revisão humana.
 
 ---
 
@@ -152,10 +152,12 @@ import { namedTokenize, namedRestore } from 'guard-brasil';
 const { tokenized, vault } = namedTokenize(rawText);
 // "O CPF do suspeito é [CPF_0001]."
 
-const llmOutput = await callLLM(tokenized); // seguro
+const llmOutput = await callLLM(tokenized); // texto tokenizado
 const restored = namedRestore(llmOutput, vault);
 // CPF restaurado na resposta final
 ```
+
+> Tokenização reduz a exposição direta dos valores durante o processamento, mas a segurança do fluxo completo depende de como vault, logs, prompts, transporte, armazenamento e resposta final são tratados.
 
 Compatível com o formato DataVirtus de anonimização.
 
@@ -213,20 +215,24 @@ Retorna `GuardBrasilResult`:
 
 | Campo | Tipo | Descrição |
 |-------|------|-----------|
-| `safe` | `boolean` | `true` se sem PII e sem violações ATRiAN |
+| `safe` | `boolean` | `true` quando esta inspeção não encontrou PII nem violações ATRiAN segundo as regras configuradas |
 | `output` | `string` | Texto processado (mascarado ou bloqueado) |
 | `masking` | `MaskingResult` | Detalhes dos findings de PII |
 | `atrian` | `AtrianResult` | Score e violações éticas |
-| `lgpdDisclosure` | `string` | Nota LGPD (vazia se sem PII) |
+| `lgpdDisclosure` | `string` | Nota LGPD (vazia se sem PII detectada) |
 | `receipt` | `InspectionReceipt` | Hashes criptográficos para auditoria |
+
+`safe: true` é resultado da inspeção configurada, não certificação de segurança global nem de conformidade legal.
 
 ---
 
-## Conformidade
+## Apoio à conformidade e auditabilidade
 
-- **LGPD (Lei 13.709/2018)** — mascaramento de dados sensíveis art. 5º e art. 11º
-- **ATRiAN** — validação ética de respostas de IA
-- Hashes SHA-256 para rastreabilidade de proveniência
+- **LGPD (Lei 13.709/2018)** — oferece mecanismos técnicos de detecção/mascaramento e rastreabilidade que podem apoiar programas de privacidade e minimização de dados.
+- **ATRiAN** — valida regras heurísticas para reduzir afirmações absolutas, falsas promessas e referências fabricadas.
+- **Hashes SHA-256** — ajudam a registrar integridade e rastreabilidade de inspeções/evidências.
+
+O pacote **não certifica conformidade com a LGPD** e não substitui análise jurídica, governança organizacional, segurança de infraestrutura, avaliação de risco ou revisão humana adequada ao contexto.
 
 ---
 
