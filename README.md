@@ -1,3 +1,9 @@
+<!-- MUDOU-PARA-O-CINCO 2026-10-15 -->
+> **Este repositório mudou para o cinco (15/10/2026).** O código vivo do Guard Brasil (o mesmo do npm @egosbr/guard-brasil) está na pasta pacotes/plugins do cinco.
+> Endereço novo: **https://github.com/enioxt/cinco/tree/main/pacotes/plugins/packages/guard-brasil**
+> Este aqui fica arquivado, só para leitura: o histórico continua inteiro aqui e nada foi apagado.
+> O EGOS agora tem dois repositórios: o **cinco** (público, github.com/enioxt/cinco) e o núcleo privado.
+
 > **MIGRAÇÃO EGOS — 2026-10-01**
 > Este repositório continua público e útil como pacote, mas não é a porta de entrada do EGOS.
 > A parte pública e compartilhável do EGOS vive em [github.com/enioxt/cinco](https://github.com/enioxt/cinco) ([cinco.ia.br](https://cinco.ia.br)); o núcleo é privado.
