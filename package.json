@@ -1,7 +1,7 @@
 {
   "name": "guard-brasil",
   "version": "0.1.1",
-  "description": "Brazilian AI safety layer — LGPD-compliant PII masking, ATRiAN ethical validation, and traceable evidence discipline for AI assistants",
+  "description": "Brazilian AI safety layer — PII masking for Brazilian identifiers, ATRiAN ethical validation, and traceable evidence discipline for AI assistants",
   "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.js",
